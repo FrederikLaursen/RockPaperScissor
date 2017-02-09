@@ -12,9 +12,7 @@ namespace RockPaperScissor
     {
         string name;
         int score;
-        bool hasTurn = false;
         Gesture chosenGesture;
-
         public string Name
         {
             get
@@ -39,20 +37,6 @@ namespace RockPaperScissor
                 score = value;
             }
         }
-
-        public bool HasTurn
-        {
-            get
-            {
-                return hasTurn;
-            }
-
-            set
-            {
-                hasTurn = value;
-            }
-        }
-
         public Gesture ChosenGesture
         {
             get
@@ -65,7 +49,6 @@ namespace RockPaperScissor
                 chosenGesture = value;
             }
         }
-
         public Player()
         {
             chosenGesture = Gesture.None;

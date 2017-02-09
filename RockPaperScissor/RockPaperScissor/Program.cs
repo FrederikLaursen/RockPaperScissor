@@ -29,6 +29,15 @@ namespace RockPaperScissor
                 }
             } while (true);
         }
+
+        /// <summary>
+        /// require
+        ///     player_already_exists:
+        ///         player \= void
+        ///         
+        /// ensure:
+        ///     player_name_set
+        /// </summary>
         public static void StartGame()
         {
             Console.WriteLine("Player one, enter your name");
@@ -39,29 +48,18 @@ namespace RockPaperScissor
             Console.WriteLine("Welcome {0} and {1}. Press Enter to continue...", playerOne.Name, playerTwo.Name);
             Console.ReadLine();
         }
+        /// <summary>
+        /// require:
+        ///     player_gesture_set
+        ///         player.ChosenGesture /= void
+        /// 
+        /// ensure:
+        ///     winner = null
+        ///     player.ChosenGesture = Gesture.None
+        /// </summary>
         public static void DetermineWinner()
         {
-            switch (playerOne.ChosenGesture)
-            {
-                case Gesture.Rock:
-                    if (playerTwo.ChosenGesture == Gesture.Scissor)
-                        winner = playerOne;
-                    else if (playerTwo.ChosenGesture == Gesture.Paper)
-                        winner = playerTwo;
-                    break;
-                case Gesture.Paper:
-                    if (playerTwo.ChosenGesture == Gesture.Rock)
-                        winner = playerOne;
-                    else if (playerTwo.ChosenGesture == Gesture.Scissor)
-                        winner = playerTwo;
-                    break;
-                case Gesture.Scissor:
-                    if (playerTwo.ChosenGesture == Gesture.Paper)
-                        winner = playerOne;
-                    else if (playerTwo.ChosenGesture == Gesture.Rock)
-                        winner = playerTwo;
-                    break;
-            }
+            winner = GetWinner(playerOne, playerTwo);
 
             if (winner == null)
             {
@@ -69,6 +67,9 @@ namespace RockPaperScissor
                 Console.ReadLine();
             }
             else
+            //Player list which contains a list of players. Used to store player information. Foreach player we go until count is 2 which would match up the players. If a player gets "Kicked out" were
+            //just gonna remove them from the list. In case of a 3 player tournament were just gonna make the first winner go into the winners bracket and match the losers.
+            //Foreach loop resets the players gestures and makes sure that we "reset" everything.
             {
                 Console.WriteLine("{0} chose {1}", playerOne.Name, playerOne.ChosenGesture.ToString());
                 Console.WriteLine("{0} chose {1}", playerTwo.Name, playerTwo.ChosenGesture.ToString());
@@ -80,7 +81,15 @@ namespace RockPaperScissor
             playerOne.ChosenGesture = Gesture.None;
             playerTwo.ChosenGesture = Gesture.None;
         }
-
+        /// <summary>
+        /// require:
+        ///     currentPlayer.Name /= void
+        ///     
+        /// ensure:
+        ///     currentPlayer.ChosenGesture /= Gesture.None
+        ///     or else
+        ///     Enviroment.Exit
+        /// </summary>
         public static void GameLoop()
         {
             Console.Clear();
@@ -110,6 +119,47 @@ namespace RockPaperScissor
                 currentPlayer = playerOne;
             }
         }
-    }
 
+        /// <summary>
+        /// Query
+        /// Require: 
+        ///     playerOne /= void
+        ///     playerTwo /= void
+        ///     
+        /// Ensure:
+        ///     Result playerOne
+        ///     or else
+        ///     Result playerTwo
+        ///     or else
+        ///     Result void
+        /// </summary>
+        /// <param name="playerOne"></param>
+        /// <param name="playerTwo"></param>
+        /// <returns></returns>
+        public static Player GetWinner(Player playerOne, Player playerTwo)
+        {
+            switch (playerOne.ChosenGesture)
+            {
+                case Gesture.Rock:
+                    if (playerTwo.ChosenGesture == Gesture.Scissor)
+                        return playerOne;
+                    else if (playerTwo.ChosenGesture == Gesture.Paper)
+                        return playerTwo;
+                    break;
+                case Gesture.Paper:
+                    if (playerTwo.ChosenGesture == Gesture.Rock)
+                        return playerOne;
+                    else if (playerTwo.ChosenGesture == Gesture.Scissor)
+                        return playerTwo;
+                    break;
+                case Gesture.Scissor:
+                    if (playerTwo.ChosenGesture == Gesture.Paper)
+                        return playerOne;
+                    else if (playerTwo.ChosenGesture == Gesture.Rock)
+                        return playerTwo;
+                    break;
+            }
+            return null;
+        }
+    }
 }
