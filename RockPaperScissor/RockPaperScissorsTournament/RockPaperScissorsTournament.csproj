@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1BE37CBF-1438-49BA-B53B-D74D6B900648}</ProjectGuid>
+    <ProjectGuid>{AA37835B-C916-4C72-B7BB-14292267D6CD}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RockPaperScissor</RootNamespace>
-    <AssemblyName>RockPaperScissor</AssemblyName>
+    <RootNamespace>RockPaperScissorsTournament</RootNamespace>
+    <AssemblyName>RockPaperScissorsTournament</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLoop.cs" />
+    <Compile Include="Match.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
